@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>JRE CRUD</title>
+    </h:head>
+    <h:body>
+        <h1>JRE CRUD</h1>
+        
+        <h:form>
+            <h:dataTable binding="#{table}" value="#{mysales.getAll()}" 
+                         var="n">
+                <h:column>
+                    <f:facet name="header">Transaction ID</f:facet>
+                    <h:outputText value="#{n.transaction_ID}"></h:outputText>
+                </h:column>    
+                <h:column>
+                    <f:facet name="header">Product ID</f:facet>
+                    <h:outputText value="#{n.product_ID}"></h:outputText>
+                </h:column>  
+                <h:column>
+                    <f:facet name="header">User ID</f:facet>
+                    <h:outputText value="#{n.user_id}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Transaction Type ID</f:facet>
+                    <h:outputText value="#{n.transaction_type_id}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{n.date}"></h:outputText>
+                </h:column>
+                <h:column>
+                     <f:facet name="header">Update</f:facet>
+                     <h:commandButton action="#{mysales.edit(n.transaction_ID)}" value="Update">
+                     </h:commandButton>    
+                 </h:column>  
+                <h:column>
+                     <f:facet name="header">Delete</f:facet>
+                     <h:commandButton action="#{mysales.delete(n.transaction_ID)}" value="Delete">
+                     </h:commandButton>    
+                 </h:column>  
+            </h:dataTable>    
+        </h:form>          
+        <h:form>
+            <h:commandButton action="addSale.xhtml" value="Add Sale"> </h:commandButton>    
+        </h:form>
+    </h:body>
+</html>

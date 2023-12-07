@@ -20,7 +20,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <h:column>
                     <f:facet name="header">Record Id</f:facet>
                     <h:outputText value="#{m.id}"></h:outputText>
-                </h:column>    
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Username</f:facet>
+                    <h:outputText value="#{m.userName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Job ID</f:facet>
+                    <h:outputText value="#{m.job_id}"></h:outputText>
+                </h:column>
                 <h:column>
                     <f:facet name="header">First Name</f:facet>
                     <h:outputText value="#{m.firstName}"></h:outputText>
@@ -51,7 +59,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </h:form>    
         
         <h:form>
-            <h:commandButton action="#{home.Register()}" value="Register"> </h:commandButton>    
+            <h:commandButton action="registerUser.xhtml" value="Register"> </h:commandButton>    
         </h:form>
+
     </h:body>
 </html>

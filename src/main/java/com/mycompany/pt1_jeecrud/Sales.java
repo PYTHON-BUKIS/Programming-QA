@@ -5,84 +5,58 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-@ManagedBean(name = "myuser", eager = true)
+@ManagedBean(name = "mysales", eager = true)
 
-public class User {
-    String userName;
-    String password;
-    String firstName;
-    String lastName;
-    String contactNumber;
-    String email;
-    int id;
-    int job_id;
-
-    ArrayList userData;
+public class Sales {
+    int transaction_ID;
+    int product_ID;
+    int user_id;
+    int transaction_type_id;
+    String date;
+    
+    ArrayList salesData;
     private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
 
     //Getters and Setters
-    public String getUserName() {
-        return userName;
+
+    public int getProduct_ID() {
+        return product_ID;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getJob_id() {
-        return job_id;
-    }
-
-    public void setJob_id(int job_id) {
-        this.job_id = job_id;
+    public void setProduct_ID(int product_ID) {
+        this.product_ID = product_ID;
     }
     
-    public int getId() {
-        return id;
+    public int getTransaction_ID() {
+        return transaction_ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTransaction_ID(int transaction_ID) {
+        this.transaction_ID = transaction_ID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getDate() {
+        return date;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getLastName() {
-        return lastName;
+    public int getTransaction_type_id() {
+        return transaction_type_id;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setTransaction_type_id(int transaction_type_id) {
+        this.transaction_type_id = transaction_type_id;
     }
 
-    public String getContactNumber() {
-        return contactNumber;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
     
     public String delete(int id) 
@@ -99,12 +73,12 @@ public class User {
                          "");
 
         Statement stmt = con.createStatement();
-        int result = stmt.executeUpdate("delete from `tbl_user`  where user_id="  +(id));
-        return "viewUsers.xhtml";
+        int result = stmt.executeUpdate("delete from `tbl_transaction` where transaction_ID="  +(id));
+        return "viewSales.xhtml";
       
     }
     
-    public String update(User u) 
+    public String update(Sales u) 
              throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
       // we will execte an update sql to table user   
@@ -118,8 +92,8 @@ public class User {
                          "");
 
         Statement stmt = con.createStatement();
-        stmt.executeUpdate("update `tbl_user` set username=\"" + u.getUserName() + "\", password=\"" + u.getPassword() + "\", firstname=\"" + u.getFirstName()+ "\",lastname=\""+ u.getLastName()+"\",email=\""+ u.getEmail()+"\",contact_number=\""+ u.getContactNumber()+"\" where user_id=" + u.getId());
-        return "viewUsers.xhtml";
+        stmt.executeUpdate("update `tbl_transaction` set product_ID=\""+ u.getProduct_ID()+"\", date=\""+ u.getDate()+"\", user_id=\""+ u.getUser_id()+"\", transaction_type_id=\""+ u.getTransaction_type_id()+"\" where transaction_ID=" + u.getTransaction_ID());
+        return "viewSales.xhtml";
     }
     
     public String edit(int id)
@@ -136,29 +110,28 @@ public class User {
                          "");
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from tbl_user where user_id=" +(id));
+        ResultSet rs = stmt.executeQuery("select * from tbl_transaction where transaction_ID=" +(id));
         
         if(rs.next())
         {
-            User temp = new User();
-            temp.id = rs.getInt("user_id");
-            temp.userName = rs.getString("username");
-            temp.firstName = rs.getString("firstname");
-            temp.lastName = rs.getString("lastname");
-            temp.email = rs.getString("email");
-            temp.contactNumber = rs.getString("contact_number");
-            sessionMap.put("editUser", temp);
+            Sales temp = new Sales();
+            temp.transaction_ID = rs.getInt("transaction_ID");
+            temp.date = rs.getString("date");
+            temp.user_id = rs.getInt("user_id");
+            temp.transaction_type_id = rs.getInt("transaction_type_id");
+            temp.product_ID = rs.getInt("product_ID");
+            sessionMap.put("editSales", temp);
         }
         // JDBC
         // then, it will load the record into the edit.xhtml
         
-        return "editUSer.xhtml";
+        return "editSale.xhtml";
     }
     
     public ArrayList getAll() 
             throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        userData = new ArrayList();
+        salesData = new ArrayList();
         
         // JDBC
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -169,22 +142,20 @@ public class User {
                          "");
 
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from tbl_user");
+        ResultSet rs = stmt.executeQuery("select * from tbl_transaction");
         
         while(rs.next())
         {
-            User temp = new User();
-            temp.id = rs.getInt("user_id");
-            temp.job_id = rs.getInt("job_id");
-            temp.userName = rs.getString("username");
-            temp.firstName = rs.getString("firstname");
-            temp.lastName = rs.getString("lastname");
-            temp.email = rs.getString("email");
-            temp.contactNumber = rs.getString("contact_number");
-            userData.add(temp);
+            Sales temp = new Sales();
+            temp.transaction_ID = rs.getInt("transaction_ID");
+            temp.product_ID = rs.getInt("product_ID");
+            temp.user_id = rs.getInt("user_id");
+            temp.transaction_type_id = rs.getInt("transaction_type_id");
+            temp.date = rs.getString("date");
+            salesData.add(temp);
         }
         // JDBC
-        return userData;
+        return salesData;
     }
     
     public boolean save() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
@@ -199,8 +170,8 @@ public class User {
                          "");
 
         Statement stmt = con.createStatement();
-        String query = "INSERT INTO `tbl_user`(`username`,`password`,`firstname`, `lastname`, `email`, `contact_number`) VALUES " +
-                       "('" + this.userName + "','" + this.password + "','" + this.firstName + "','" + this.lastName + "','" + this.email + "','" + this.contactNumber + "')";
+        String query = "INSERT INTO `tbl_transaction`(`product_ID`, `user_id`, `transaction_type_id`, `date`) VALUES " +
+                       "('" + this.product_ID + "','" + this.user_id + "','" + this.transaction_type_id + "','" + this.date + "')";
         
         int result = stmt.executeUpdate(query);
         
@@ -213,7 +184,7 @@ public class User {
     
     public String submit() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-       if (save()) return "viewUsers.xhtml";
-       else  return "registerUser.xhtml";
+       if (save()) return "viewSales.xhtml";
+       else  return "addSale.xhtml";
     }
 }

@@ -8,7 +8,13 @@
     <h:body>
         <h1>Edit Record</h1>
         
-        <h:form>
+        <h:form
+            <h:outputLabel for="un" value="Enter Username:"></h:outputLabel>
+            <h:inputText id="un" value="#{editUSer.userName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="pw" value="Enter Password:"></h:outputLabel>
+            <h:inputText id="pw" value="#{editUser.password}"></h:inputText>
+            <br></br>
             <h:outputLabel for="firstname" value="Enter First Name:"></h:outputLabel>
             <h:inputText id="firstname" value="#{editUser.firstName}"></h:inputText>
             <br></br>

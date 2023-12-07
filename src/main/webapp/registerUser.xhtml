@@ -15,6 +15,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h1>Register Record</h1>
         
         <h:form>
+            <h:outputLabel for="un" value="Enter Username:"></h:outputLabel>
+            <h:inputText id="un" value="#{myuser.userName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="pw" value="Enter Password:"></h:outputLabel>
+            <h:inputText id="pw" value="#{myuser.password}"></h:inputText>
+            <br></br>
             <h:outputLabel for="fn" value="Enter First Name:"></h:outputLabel>
             <h:inputText id="fn" value="#{myuser.firstName}"></h:inputText>
             <br></br>
