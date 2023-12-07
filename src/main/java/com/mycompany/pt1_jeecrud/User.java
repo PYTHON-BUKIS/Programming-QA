@@ -8,16 +8,43 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "myuser", eager = true)
 
 public class User {
+    String userName;
+    String password;
     String firstName;
     String lastName;
     String contactNumber;
     String email;
     int id;
+    int job_id;
 
     ArrayList userData;
     private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
 
     //Getters and Setters
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getJob_id() {
+        return job_id;
+    }
+
+    public void setJob_id(int job_id) {
+        this.job_id = job_id;
+    }
+    
     public int getId() {
         return id;
     }
@@ -76,7 +103,6 @@ public class User {
         return "grid.xhtml";
       
     }
-    
     
     public String update(User u) 
              throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
@@ -156,9 +182,7 @@ public class User {
         }
         // JDBC
         return userData;
-    }        
-    
-    
+    }
     
     public boolean save() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
@@ -183,6 +207,7 @@ public class User {
             return false;
         
     }        
+    
     public String submit() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
        if (save()) return "view.xhtml";

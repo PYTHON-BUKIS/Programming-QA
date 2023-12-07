@@ -1,5 +1,10 @@
 package com.mycompany.pt1_jeecrud;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 
 /*
