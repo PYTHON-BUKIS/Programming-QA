@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>Edit Record</title>
+    </h:head>
+    <h:body>
+        <h1>Edit Record</h1>
+        
+        <h:form>
+            <h:outputLabel for="firstname" value="Enter First Name:"></h:outputLabel>
+            <h:inputText id="firstname" value="#{editUser.firstName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="lastname" value="Enter Last Name:"></h:outputLabel>
+            <h:inputText id="lastname" value="#{editUser.lastName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="email" value="Enter Email:"></h:outputLabel>
+            <h:inputText id="email" value="#{editUser.email}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="contactnumber" value="Enter Contact Number:"></h:outputLabel>
+            <h:inputText id="contactnumber" value="#{editUser.contactNumber}"></h:inputText>
+            <br></br>
+            <h:commandButton action="#{myuser.update(editUser)}" value="SaveData">
+            </h:commandButton> 
+        </h:form>    
+    </h:body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>My Registraion</title>
+    </h:head>
+    <h:body>
+        <h1>Register Record</h1>
+        
+        <h:form>
+            <h:outputLabel for="fn" value="Enter First Name:"></h:outputLabel>
+            <h:inputText id="fn" value="#{myuser.firstName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="ln" value="Enter Last Name:"></h:outputLabel>
+            <h:inputText id="ln" value="#{myuser.lastName}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="em" value="Enter Email:"></h:outputLabel>
+            <h:inputText id="em" value="#{myuser.email}"></h:inputText>
+            <br></br>
+            <h:outputLabel for="cn" value="Enter Contact Number:"></h:outputLabel>
+            <h:inputText id="cn" value="#{myuser.contactNumber}"></h:inputText>
+            <br></br>
+            <h:commandButton action="#{myuser.submit()}" value="SaveData">
+            </h:commandButton>
+        </h:form>    
+    </h:body>
+</html>
