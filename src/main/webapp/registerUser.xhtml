@@ -22,28 +22,41 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         </nav>
         
         <h1>Register Record</h1>
-        
+
         <h:form>
-            <h:outputLabel for="un" value="Enter Username:"></h:outputLabel>
-            <h:inputText id="un" value="#{myuser.userName}"></h:inputText>
+            <h:outputLabel for="firstName" value="First Name:"></h:outputLabel>
+            <h:inputText id="firstName" value="#{Users.firstName}"></h:inputText>
             <br></br>
-            <h:outputLabel for="pw" value="Enter Password:"></h:outputLabel>
-            <h:inputText id="pw" value="#{myuser.password}"></h:inputText>
+
+            <h:outputLabel for="lastName" value="Last Name:"></h:outputLabel>
+            <h:inputText id="lastName" value="#{Users.lastName}"></h:inputText>
             <br></br>
-            <h:outputLabel for="fn" value="Enter First Name:"></h:outputLabel>
-            <h:inputText id="fn" value="#{myuser.firstName}"></h:inputText>
+
+            <h:outputLabel for="username" value="Username:"></h:outputLabel>
+            <h:inputText id="username" value="#{Users.username}"></h:inputText>
             <br></br>
-            <h:outputLabel for="ln" value="Enter Last Name:"></h:outputLabel>
-            <h:inputText id="ln" value="#{myuser.lastName}"></h:inputText>
+
+            <h:outputLabel for="password" value="Password:"></h:outputLabel>
+            <h:inputText id="password" value="#{Users.password}"></h:inputText>
             <br></br>
-            <h:outputLabel for="em" value="Enter Email:"></h:outputLabel>
-            <h:inputText id="em" value="#{myuser.email}"></h:inputText>
+
+            <h:outputLabel for="email" value="Email:"></h:outputLabel>
+            <h:inputText id="email" value="#{Users.email}"></h:inputText>
             <br></br>
-            <h:outputLabel for="cn" value="Enter Contact Number:"></h:outputLabel>
-            <h:inputText id="cn" value="#{myuser.contactNumber}"></h:inputText>
+
+            <h:outputLabel for="contactNumber" value="Contact Number:"></h:outputLabel>
+            <h:inputText id="contactNumber" value="#{Users.contactNumber}"></h:inputText>
             <br></br>
-            <h:commandButton action="#{myuser.submit()}" value="SaveData">
+
+            <h:outputLabel for="jobTitle" value="Job Title:"></h:outputLabel>
+            <h:selectOneMenu id="jobTitle" value="#{Users.jobId}">
+                <f:selectItem itemLabel="Select Job" itemValue="" />
+                <f:selectItems value="#{Jobs.GetAll()}" var="job" itemValue="#{job.job_id}" itemLabel="#{job.name}" />
+            </h:selectOneMenu>
+            <br></br>
+
+            <h:commandButton action="#{Users.Insert(Users)}" value="Save">
             </h:commandButton>
-        </h:form>    
+        </h:form>
     </h:body>
 </html>

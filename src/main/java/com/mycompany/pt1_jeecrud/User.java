@@ -152,8 +152,7 @@ public class User {
             return "Helper/error.xhtml";
         }
     }
-
-    //todo: test
+    
     public String BeginEditProcess(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
     {
         try {
