@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>Edit Transaction</title>
+    </h:head>
+    <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <h1>Edit Transaction</h1>
+        
+        <h:form>
+            <h:outputLabel for="product" value="Product:"></h:outputLabel>
+            <h:selectOneMenu id="product" value="#{transactionToEdit.productId}">
+                <f:selectItem itemLabel="Select Product" itemValue="" />
+                <f:selectItems value="#{Products.GetAll()}" var="product" itemValue="#{product.productId}" itemLabel="#{product.name}" />
+            </h:selectOneMenu>
+            <br></br>
+            
+            <h:outputLabel for="customer" value="Customer:"></h:outputLabel>
+            <h:selectOneMenu id="customer" value="#{transactionToEdit.userId}">
+                <f:selectItem itemLabel="Select Customer" itemValue="" />
+                <f:selectItems value="#{Users.GetAll()}" var="c" itemValue="#{c.userId}" itemLabel="#{Transactions.getCustomerName(c.userId)}" />
+            </h:selectOneMenu>
+            <br></br>
+            
+            <h:outputLabel for="transactionType" value="Transaction Type:"></h:outputLabel>
+            <h:selectOneMenu id="transactionType" value="#{transactionToEdit.transactionTypeId}">
+                <f:selectItem itemLabel="Select Transaction Type" itemValue="" />
+                <f:selectItems value="#{TransactionTypes.GetAll()}" var="transaction" itemValue="#{transaction.transactionTypeId}" itemLabel="#{transaction.name}" />
+            </h:selectOneMenu>
+            <br></br>
+
+            <h:outputLabel for="date" value="Date"></h:outputLabel>
+            <h:inputText id="date" value="#{transactionToEdit.date}"></h:inputText>
+            <br></br>
+
+            <h:commandButton action="#{Transactions.Update(transactionToEdit)}" value="Save">
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>

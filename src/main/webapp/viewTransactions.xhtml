@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>View Transactions</title>
+    </h:head>
+    <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <h1>View Transactions</h1>
+        
+        <h:form>
+            <h:dataTable binding="#{table}" value="#{Transactions.GetAll()}" var="transaction">
+                <h:column>
+                    <f:facet name="header">Transaction ID</f:facet>
+                    <h:outputText value="#{transaction.transactionId}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Product ID</f:facet>
+                    <h:outputText value="#{transaction.productId}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Product Name</f:facet>
+                    <h:outputText value="#{Transactions.getProductName(transaction.productId)}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Customer ID</f:facet>
+                    <h:outputText value="#{transaction.userId}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Customer Name</f:facet>
+                    <h:outputText value="#{Transactions.getCustomerName(transaction.userId)}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Transaction Type</f:facet>
+                    <h:outputText value="#{Transactions.getTransactionTypeString(transaction.transactionTypeId)}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+                    <h:outputText value="#{transaction.date}"></h:outputText>
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Edit Transaction</f:facet>
+                       <h:commandButton action="#{Transactions.BeginEditProcess(transaction.transactionId)}" value="Edit" />
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Remove Transaction</f:facet>
+                    <h:commandButton action="#{Transactions.Delete(transaction.transactionId)}" value="Delete" />
+                </h:column>
+                
+            </h:dataTable>
+        </h:form>
+
+        <h:form>
+            <h:commandButton action="registerTransaction.xhtml" value="Register"> </h:commandButton>    
+        </h:form>
+
+    </h:body>
+</html>

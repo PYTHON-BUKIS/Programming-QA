@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>Register Transaction</title>
+    </h:head>
+    <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
+        <h1>Register Transaction</h1>
+
+        <h:form>
+            <h:outputLabel for="product" value="Product:"></h:outputLabel>
+            <h:selectOneMenu id="product" value="#{Transactions.productId}">
+                <f:selectItem itemLabel="Select Product" itemValue="" />
+                <f:selectItems value="#{Products.GetAll()}" var="product" itemValue="#{product.productId}" itemLabel="#{product.name}" />
+            </h:selectOneMenu>
+            <br></br>
+            
+            <h:outputLabel for="customer" value="Customer:"></h:outputLabel>
+            <h:selectOneMenu id="customer" value="#{Transactions.userId}">
+                <f:selectItem itemLabel="Select Customer" itemValue="" />
+                <f:selectItems value="#{Users.GetAll()}" var="c" itemValue="#{c.userId}" itemLabel="#{Transactions.getCustomerName(c.userId)}" />
+            </h:selectOneMenu>
+            <br></br>
+            
+            <h:outputLabel for="transactionType" value="Transaction Type:"></h:outputLabel>
+            <h:selectOneMenu id="transactionType" value="#{Transactions.transactionTypeId}">
+                <f:selectItem itemLabel="Select Transaction Type" itemValue="" />
+                <f:selectItems value="#{TransactionTypes.GetAll()}" var="transaction" itemValue="#{transaction.transactionTypeId}" itemLabel="#{transaction.name}" />
+            </h:selectOneMenu>
+            <br></br>
+
+            <h:outputLabel for="date" value="Date"></h:outputLabel>
+            <h:inputText id="date" value="#{Transactions.date}"></h:inputText>
+            <br></br>
+
+            <h:commandButton action="#{Transactions.Insert(Transactions)}" value="Save">
+            </h:commandButton>
+        </h:form>
+    </h:body>
+</html>
