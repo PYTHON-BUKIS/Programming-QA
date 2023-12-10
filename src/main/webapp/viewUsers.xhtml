@@ -12,50 +12,60 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>JRE CRUD</title>
     </h:head>
     <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
         <h1>JRE CRUD</h1>
         
         <h:form>
-            <h:dataTable binding="#{table}" value="#{myuser.getAll()}" 
-                         var="m">
+            <h:dataTable binding="#{table}" value="#{Users.GetAll()}" var="user">
                 <h:column>
-                    <f:facet name="header">Record Id</f:facet>
-                    <h:outputText value="#{m.id}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Username</f:facet>
-                    <h:outputText value="#{m.userName}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Job ID</f:facet>
-                    <h:outputText value="#{m.job_id}"></h:outputText>
+                    <f:facet name="header">User ID</f:facet>
+                    <h:outputText value="#{user.userId}"></h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">First Name</f:facet>
-                    <h:outputText value="#{m.firstName}"></h:outputText>
-                </h:column>  
+                    <h:outputText value="#{user.firstName}"></h:outputText>
+                </h:column>
                 <h:column>
                     <f:facet name="header">Last Name</f:facet>
-                    <h:outputText value="#{m.lastName}"></h:outputText>
+                    <h:outputText value="#{user.lastName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Username</f:facet>
+                    <h:outputText value="#{user.username}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Password</f:facet>
+                    <h:outputText value="#{user.password}"></h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Email</f:facet>
-                    <h:outputText value="#{m.email}"></h:outputText>
+                    <h:outputText value="#{user.email}"></h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Contact Number</f:facet>
-                    <h:outputText value="#{m.contactNumber}"></h:outputText>
+                    <h:outputText value="#{user.contactNumber}"></h:outputText>
                 </h:column>
                 <h:column>
-                     <f:facet name="header">Update</f:facet>
-                     <h:commandButton action="#{myuser.edit(m.id)}" value="Update">
-                     </h:commandButton>    
-                 </h:column>  
+                    <f:facet name="header">Job Title</f:facet>
+                    <h:outputText value="#{Users.getJobName(user.jobId)}"></h:outputText>
+                </h:column>
                 <h:column>
-                     <f:facet name="header">Delete</f:facet>
-                     <h:commandButton action="#{myuser.delete(m.id)}" value="Delete">
-                     </h:commandButton>    
-                 </h:column>  
-            </h:dataTable>    
+                    <f:facet name="header">Edit User</f:facet>
+                       <h:commandButton action="#{Users.BeginEditProcess(user.userId)}" value="Edit" />
+                </h:column>
+                <h:column>
+                <f:facet name="header">Remove User</f:facet>
+                    <h:commandButton action="#{Users.Delete(user.userId)}" value="Delete" />
+                </h:column>
+            </h:dataTable>
         </h:form>    
         
         <h:form>

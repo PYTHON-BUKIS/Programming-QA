@@ -12,6 +12,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>JRE CRUD</title>
     </h:head>
     <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
         <h1>JRE CRUD</h1>
         
         <h:form>
@@ -22,16 +31,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <h:outputText value="#{n.transaction_ID}"></h:outputText>
                 </h:column>    
                 <h:column>
-                    <f:facet name="header">Product ID</f:facet>
-                    <h:outputText value="#{n.product_ID}"></h:outputText>
+                    <f:facet name="header">Product Name</f:facet>
+                    <h:outputText value="#{n.product_name}"></h:outputText>
                 </h:column>  
                 <h:column>
-                    <f:facet name="header">User ID</f:facet>
-                    <h:outputText value="#{n.user_id}"></h:outputText>
+                    <f:facet name="header">Product Model</f:facet>
+                    <h:outputText value="#{n.model_name}"></h:outputText>
+                </h:column>  
+                <h:column>
+                    <f:facet name="header">Customer Name</f:facet>
+                    <h:outputText value="#{n.customerName}"></h:outputText>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Transaction Type ID</f:facet>
-                    <h:outputText value="#{n.transaction_type_id}"></h:outputText>
+                    <f:facet name="header">Transaction Type</f:facet>
+                    <h:outputText value="#{n.transaction_type}"></h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Date</f:facet>

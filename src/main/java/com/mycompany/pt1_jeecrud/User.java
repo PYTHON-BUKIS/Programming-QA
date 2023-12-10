@@ -5,28 +5,26 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-@ManagedBean(name = "myuser", eager = true)
+@ManagedBean(name = "Users", eager = true)
 
 public class User {
-    String userName;
+    String username;
     String password;
     String firstName;
     String lastName;
     String contactNumber;
     String email;
-    int id;
-    int job_id;
+    int userId;
+    int jobId;
+    
+    Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 
-    ArrayList userData;
-    private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();  
-
-    //Getters and Setters
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -35,22 +33,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getJob_id() {
-        return job_id;
-    }
-
-    public void setJob_id(int job_id) {
-        this.job_id = job_id;
-    }
-    
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -84,136 +66,190 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String delete(int id) 
-             throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-      // we will execte an update sql to table user   
-      // sending the new values passed to u from the sessionmap  
-      
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        
-        Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                         "root",
-                         "");
 
-        Statement stmt = con.createStatement();
-        int result = stmt.executeUpdate("delete from `tbl_user`  where user_id="  +(id));
-        return "viewUsers.xhtml";
-      
-    }
-    
-    public String update(User u) 
-             throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-      // we will execte an update sql to table user   
-      // sending the new values passed to u from the sessionmap  
-      
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+    public String getJobName(int jobId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
         
-        Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                         "root",
-                         "");
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                "root",
+                "");
 
-        Statement stmt = con.createStatement();
-        stmt.executeUpdate("update `tbl_user` set username=\"" + u.getUserName() + "\", password=\"" + u.getPassword() + "\", firstname=\"" + u.getFirstName()+ "\",lastname=\""+ u.getLastName()+"\",email=\""+ u.getEmail()+"\",contact_number=\""+ u.getContactNumber()+"\" where user_id=" + u.getId());
-        return "viewUsers.xhtml";
-    }
-    
-    public String edit(int id)
-            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-        // edit will retrive the record from the mysql table
-        
-         // JDBC
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        
-        Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                         "root",
-                         "");
-
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from tbl_user where user_id=" +(id));
-        
-        if(rs.next())
-        {
-            User temp = new User();
-            temp.id = rs.getInt("user_id");
-            temp.userName = rs.getString("username");
-            temp.firstName = rs.getString("firstname");
-            temp.lastName = rs.getString("lastname");
-            temp.email = rs.getString("email");
-            temp.contactNumber = rs.getString("contact_number");
-            sessionMap.put("editUser", temp);
+            PreparedStatement statement = con.prepareStatement("SELECT name FROM tbl_jobType WHERE job_id = ? LIMIT 1");
+            statement.setInt(1, jobId);
+            ResultSet results = statement.executeQuery();
+            
+            if (results.next()) return results.getString("name");
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+            return "Error";
         }
-        // JDBC
-        // then, it will load the record into the edit.xhtml
-        
-        return "editUSer.xhtml";
+         
+         return "NULL";
+    }
+
+    public int getJobId() {
+        return jobId;
     }
     
-    public ArrayList getAll() 
-            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-        userData = new ArrayList();
-        
-        // JDBC
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        
-        Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                         "root",
-                         "");
+    public void setJobId(int jobId) {
+        this.jobId = jobId;
+    }
 
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from tbl_user");
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String Delete(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                "root",
+                "");
+
+            PreparedStatement statement = con.prepareStatement("DELETE FROM tbl_user WHERE user_id = ?");
+            statement.setInt(1, id);
+            statement.executeUpdate();
+
+            return "viewUsers.xhtml";
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+            return "Helper/error.xhtml";
+        } 
+    }
+    
+    public String Update(User u) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
         
-        while(rs.next())
-        {
-            User temp = new User();
-            temp.id = rs.getInt("user_id");
-            temp.job_id = rs.getInt("job_id");
-            temp.userName = rs.getString("username");
-            temp.firstName = rs.getString("firstname");
-            temp.lastName = rs.getString("lastname");
-            temp.email = rs.getString("email");
-            temp.contactNumber = rs.getString("contact_number");
-            userData.add(temp);
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                "root",
+                "");
+
+            PreparedStatement statement = con.prepareStatement("UPDATE tbl_user SET job_id = ?, username = ?, password = ?, firstname = ?, lastname = ?, email = ?, contact_number = ? WHERE user_id = ?");
+            statement.setInt(1, u.jobId);
+            statement.setString(2, u.getUsername());
+            statement.setString(3, u.getPassword());
+            statement.setString(4, u.getFirstName());
+            statement.setString(5, u.getLastName());
+            statement.setString(6, u.getEmail());
+            statement.setString(7, u.getContactNumber());
+            statement.setInt(8, (u.getUserId()));
+            statement.executeUpdate();
+
+            return "viewUsers.xhtml";
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+            return "Helper/error.xhtml";
         }
-        // JDBC
+    }
+
+    //todo: test
+    public String BeginEditProcess(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            PreparedStatement statement = con.prepareStatement("SELECT user_id, firstname, lastname, username, password, email, contact_number, job_id FROM tbl_user WHERE user_id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            
+            if (result.next()) {
+                User temp = new User();
+                temp.setUserId(result.getInt("user_id"));
+                temp.setUsername(result.getString("username"));
+                temp.setPassword(result.getString("password"));
+                temp.setFirstName(result.getString("firstname"));
+                temp.setLastName(result.getString("lastname"));
+                temp.setEmail(result.getString("email"));
+                temp.setContactNumber(result.getString("contact_number"));
+                temp.setJobId(result.getInt("job_id"));
+                sessionMap.put("userToEdit", temp);
+                
+                
+            }
+            
+            return "editUser.xhtml";
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            System.out.println(e.getClass().getSimpleName());
+            return "Helper/error.xhtml";
+        }
+    }
+    
+    public ArrayList GetAll() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        ArrayList<User> userData = new ArrayList();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT u.user_id, u.firstname, u.lastname, u.username, u.password, u.email, u.contact_number, u.job_id FROM tbl_user u;");
+
+            while(rs.next())
+            {
+                User temp = new User();
+
+                temp.setUserId(rs.getInt("user_id"));
+                temp.setFirstName(rs.getString("firstname"));
+                temp.setLastName(rs.getString("lastname"));
+                temp.setUsername(rs.getString("username"));
+                temp.setPassword(rs.getString("password"));
+                temp.setEmail(rs.getString("email"));
+                temp.setContactNumber(rs.getString("contact_number"));
+                temp.setJobId(rs.getInt("job_id"));
+
+                userData.add(temp);
+            }
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+        }
+
         return userData;
     }
-    
-    public boolean save() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-        // JDBC statements here
-        // insert into tbl_user (`un`,`em`) values ('john doe', 'jdoe@gmail.com');
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-        
-        Connection con = DriverManager.getConnection(
-                         "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
-                         "root",
-                         "");
 
-        Statement stmt = con.createStatement();
-        String query = "INSERT INTO `tbl_user`(`username`,`password`,`firstname`, `lastname`, `email`, `contact_number`) VALUES " +
-                       "('" + this.userName + "','" + this.password + "','" + this.firstName + "','" + this.lastName + "','" + this.email + "','" + this.contactNumber + "')";
-        
-        int result = stmt.executeUpdate(query);
-        
-        if (result == 1)
-            return true;
-        else 
-            return false;
-        
-    }        
-    
-    public String submit() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
-    {
-       if (save()) return "viewUsers.xhtml";
-       else  return "registerUser.xhtml";
+    public String Insert(User u) throws     SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            PreparedStatement statement = con.prepareStatement("INSERT INTO tbl_user (job_id, username, password, firstname, lastname, email, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            statement.setInt(1, u.jobId);
+            statement.setString(2, u.getUsername());
+            statement.setString(3, u.getPassword());
+            statement.setString(4, u.getFirstName());
+            statement.setString(5, u.getLastName());
+            statement.setString(6, u.getEmail());
+            statement.setString(7, u.getContactNumber());
+            statement.executeUpdate();
+
+            return "viewUsers.xhtml";
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+            return "Helper/error.xhtml";
+        }
     }
 }

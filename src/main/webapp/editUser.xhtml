@@ -6,28 +6,50 @@
         <title>Edit Record</title>
     </h:head>
     <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsers.xhtml">Users</a></li>
+                <li><a href="viewProducts.xhtml">Products</a></li>
+                <li><a href="viewTransactions.xhtml">Transactions</a></li>
+                <li><a href="viewReports.xhtml">Reports</a></li>
+            </ul>
+        </nav>
+        
         <h1>Edit Record</h1>
         
-        <h:form
-            <h:outputLabel for="un" value="Enter Username:"></h:outputLabel>
-            <h:inputText id="un" value="#{editUSer.userName}"></h:inputText>
+        <h:form>
+            <h:outputLabel for="firstName" value="First Name:"></h:outputLabel>
+            <h:inputText id="firstName" value="#{userToEdit.firstName}"></h:inputText>
             <br></br>
-            <h:outputLabel for="pw" value="Enter Password:"></h:outputLabel>
-            <h:inputText id="pw" value="#{editUser.password}"></h:inputText>
+
+            <h:outputLabel for="lastName" value="Last Name:"></h:outputLabel>
+            <h:inputText id="lastName" value="#{userToEdit.lastName}"></h:inputText>
             <br></br>
-            <h:outputLabel for="firstname" value="Enter First Name:"></h:outputLabel>
-            <h:inputText id="firstname" value="#{editUser.firstName}"></h:inputText>
+
+            <h:outputLabel for="username" value="Username:"></h:outputLabel>
+            <h:inputText id="username" value="#{userToEdit.username}"></h:inputText>
             <br></br>
-            <h:outputLabel for="lastname" value="Enter Last Name:"></h:outputLabel>
-            <h:inputText id="lastname" value="#{editUser.lastName}"></h:inputText>
+
+            <h:outputLabel for="password" value="Password:"></h:outputLabel>
+            <h:inputText id="password" value="#{userToEdit.password}"></h:inputText>
             <br></br>
-            <h:outputLabel for="email" value="Enter Email:"></h:outputLabel>
-            <h:inputText id="email" value="#{editUser.email}"></h:inputText>
+
+            <h:outputLabel for="email" value="Email:"></h:outputLabel>
+            <h:inputText id="email" value="#{userToEdit.email}"></h:inputText>
             <br></br>
-            <h:outputLabel for="contactnumber" value="Enter Contact Number:"></h:outputLabel>
-            <h:inputText id="contactnumber" value="#{editUser.contactNumber}"></h:inputText>
+
+            <h:outputLabel for="contactNumber" value="Contact Number:"></h:outputLabel>
+            <h:inputText id="contactNumber" value="#{userToEdit.contactNumber}"></h:inputText>
             <br></br>
-            <h:commandButton action="#{myuser.update(editUser)}" value="SaveData">
+            
+            <h:outputLabel for="jobTitle" value="Job Title:"></h:outputLabel>
+            <h:selectOneMenu id="jobTitle" value="#{userToEdit.jobId}">
+                <f:selectItem itemLabel="Select Job" itemValue="" />
+                <f:selectItems value="#{Jobs.GetAll()}" var="job" itemValue="#{job.job_id}" itemLabel="#{job.name}" />
+            </h:selectOneMenu>
+            <br></br>
+            
+            <h:commandButton action="#{userToEdit.Update(userToEdit)}" value="Save">
             </h:commandButton> 
         </h:form>    
     </h:body>
