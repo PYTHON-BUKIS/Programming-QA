@@ -7,6 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f ="http://java.sun.com/jsf/core" 
      xmlns:h ="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
      >
     <h:head>
         <title>View Transactions</title>
@@ -18,7 +19,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 <li><a href="viewUsers.xhtml">Users</a></li>
                 <li><a href="viewProducts.xhtml">Products</a></li>
                 <li><a href="viewTransactions.xhtml">Transactions</a></li>
-                <li><a href="viewReports.xhtml">Reports</a></li>
             </ul>
         </nav>
         
@@ -77,6 +77,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <h:form>
             <h:commandButton action="registerTransaction.xhtml" value="Register"> </h:commandButton>    
         </h:form>
+        
+        <div>
+            <h:form>
+                <h:outputLabel for="dateFrom" value="Date From"></h:outputLabel>
+                <p:calendar id="dateFrom" value="#{Transactions.reportDateFrom}" pattern="yyyy-MM-dd" />
+                <br></br>
+                
+                <h:outputLabel for="dateTo" value="Date To"></h:outputLabel>
+                <p:calendar id="dateTo" value="#{Transactions.reportDateTo}" pattern="yyyy-MM-dd" />
+                <br></br>
 
+                <h:commandButton action="#{Transactions.GenerateReport()}" value="Generate Report"> </h:commandButton>    
+            </h:form>
+        </div>
     </h:body>
 </html>

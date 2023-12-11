@@ -15,10 +15,29 @@ public class Transaction {
     int transactionTypeId;
     java.util.Date date;
     
+    java.util.Date reportDateFrom;
+    java.util.Date reportDateTo;
+    
     final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   
     private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 
+    public java.util.Date getReportDateFrom() {
+        return reportDateFrom;
+    }
+
+    public void setReportDateFrom(java.util.Date reportDateFrom) {
+        this.reportDateFrom = reportDateFrom;
+    }
+
+    public java.util.Date getReportDateTo() {
+        return reportDateTo;
+    }
+
+    public void setReportDateTo(java.util.Date reportDateTo) {
+        this.reportDateTo = reportDateTo;
+    }
+    
     public int getTransactionId() {
         return transactionId;
     }
@@ -257,5 +276,47 @@ public class Transaction {
             e.printStackTrace();
             return "Helper/error.xhtml";
         }
+    }
+    
+    public ArrayList GetTransactionsBetweenDate(java.util.Date from, java.util.Date to) {
+        ArrayList<Transaction> transactionData = new ArrayList();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            PreparedStatement stmt = con.prepareStatement("SELECT transaction_id, product_id, user_id, transaction_type_id, date FROM tbl_transaction WHERE date BETWEEN ? and ?;");
+            stmt.setDate(1, new Date(from.getTime()));
+            stmt.setDate(2, new Date(to.getTime()));
+            ResultSet results = stmt.executeQuery();
+
+            while(results.next())
+            {
+                Transaction temp = new Transaction();
+
+                temp.setTransactionId(results.getInt("transaction_id"));
+                temp.setProductId(results.getInt("product_id"));
+                temp.setUserId(results.getInt("user_id"));
+                temp.setTransactionTypeId(results.getInt("transaction_type_id"));
+                temp.setDate(results.getDate("date"));
+
+                transactionData.add(temp);
+            }
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+        }
+
+        return transactionData;
+    }
+    
+    public void GenerateReport() {
+        ArrayList<Transaction> transactionsBetweenDate = GetTransactionsBetweenDate(reportDateFrom, reportDateTo);
+        
+        // todo: make pdf file
+        // todo: pdf save as
     }
 }
