@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>View Users</title>
+        <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
+    </h:head>
+    <h:body>
+        
+        <nav>
+            <ul>
+                <li><a href="viewUsersSV.xhtml">Users</a></li>
+                <li><a href="viewProductsSV.xhtml">Products</a></li>
+                <li><a href="viewTransactionsSV.xhtml">Transactions</a></li>
+            </ul>
+        </nav>
+        
+        <h1>View Users</h1>
+        
+        <h:form>
+            <h:dataTable binding="#{table}" value="#{Users.GetAll()}" var="user">
+                <h:column>
+                    <f:facet name="header">User ID</f:facet>
+                    <h:outputText value="#{user.userId}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">First Name</f:facet>
+                    <h:outputText value="#{user.firstName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Last Name</f:facet>
+                    <h:outputText value="#{user.lastName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Username</f:facet>
+                    <h:outputText value="#{user.username}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Password</f:facet>
+                    <h:outputText value="#{user.password}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    <h:outputText value="#{user.email}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contact Number</f:facet>
+                    <h:outputText value="#{user.contactNumber}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Job Title</f:facet>
+                    <h:outputText value="#{Users.getJobName(user.jobId)}"></h:outputText>
+                </h:column>
+                
+            </h:dataTable>
+        </h:form>    
+
+    </h:body>
+</html>

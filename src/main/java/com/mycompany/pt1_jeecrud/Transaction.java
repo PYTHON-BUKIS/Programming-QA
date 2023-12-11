@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 @ManagedBean(name = "Transactions", eager = true)
 
-public class Transaction {
+public class Transaction{
     int transactionId;
     int productId;
     int userId;
@@ -253,6 +253,40 @@ public class Transaction {
         }
 
         return transactionData;
+    }
+    
+    public ArrayList GetAllCustomer() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException //WORK IN PROGRESS
+    {
+        ArrayList<Transaction> transactionData = new ArrayList();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            Statement stmt = con.createStatement();
+            ResultSet results = stmt.executeQuery("SELECT transaction_id, user_id, product_id, transaction_type_id, date FROM tbl_transaction WHERE user_id = 3;");
+
+            while(results.next())
+            {
+                Transaction temp = new Transaction();
+
+                temp.setTransactionId(results.getInt("transaction_id"));
+                temp.setProductId(results.getInt("product_id"));
+                temp.setUserId(results.getInt("user_id"));
+                temp.setTransactionTypeId(results.getInt("transaction_type_id"));
+                temp.setDate(results.getDate("date"));
+
+                transactionData.add(temp);
+            }
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+        }
+
+        return transactionData;        
     }
 
     public String Insert(Transaction t) throws     SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
