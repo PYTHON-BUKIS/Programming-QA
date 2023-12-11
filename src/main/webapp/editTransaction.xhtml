@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f ="http://java.sun.com/jsf/core" 
      xmlns:h ="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
      >
     <h:head>
         <title>Edit Transaction</title>
@@ -41,7 +42,7 @@
             <br></br>
 
             <h:outputLabel for="date" value="Date"></h:outputLabel>
-            <h:inputText id="date" value="#{transactionToEdit.date}"></h:inputText>
+            <p:calendar id="date" value="#{transactionToEdit.date}" pattern="yyyy-MM-dd" />
             <br></br>
 
             <h:commandButton action="#{Transactions.Update(transactionToEdit)}" value="Save">

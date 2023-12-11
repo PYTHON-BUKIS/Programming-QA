@@ -1,6 +1,7 @@
 package com.mycompany.pt1_jeecrud;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +13,9 @@ public class Transaction {
     int productId;
     int userId;
     int transactionTypeId;
-    String date;
+    java.util.Date date;
+    
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
   
     private Map<String,Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 
@@ -114,11 +117,11 @@ public class Transaction {
         this.transactionTypeId = transactionTypeId;
     }
 
-    public String getDate() {
+    public java.util.Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(java.util.Date date) {
         this.date = date;
     }
     
@@ -156,7 +159,7 @@ public class Transaction {
             statement.setInt(1, t.getProductId());
             statement.setInt(2, t.getUserId());
             statement.setInt(3, t.getTransactionTypeId());
-            statement.setString(4, t.getDate());
+            statement.setDate(4, new Date(t.getDate().getTime()));
             statement.setInt(5, t.getTransactionId());
             statement.executeUpdate();
 
@@ -188,7 +191,7 @@ public class Transaction {
                 temp.setProductId(result.getInt("product_id"));
                 temp.setUserId(result.getInt("user_id"));
                 temp.setTransactionTypeId(result.getInt("transaction_type_id"));
-                temp.setDate(result.getString("date"));
+                temp.setDate(result.getDate("date"));
                 sessionMap.put("transactionToEdit", temp);
             }
 
@@ -222,7 +225,7 @@ public class Transaction {
                 temp.setProductId(results.getInt("product_id"));
                 temp.setUserId(results.getInt("user_id"));
                 temp.setTransactionTypeId(results.getInt("transaction_type_id"));
-                temp.setDate(results.getString("date"));
+                temp.setDate(results.getDate("date"));
 
                 transactionData.add(temp);
             }
@@ -233,7 +236,7 @@ public class Transaction {
         return transactionData;
     }
 
-    public String Insert(Transaction p) throws     SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public String Insert(Transaction t) throws     SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -243,10 +246,10 @@ public class Transaction {
                     "");
 
             PreparedStatement statement = con.prepareStatement("INSERT INTO tbl_transaction (product_id, user_id, transaction_type_id, date) VALUES (?, ?, ?, ?)");
-            statement.setInt(1, p.getProductId());
-            statement.setInt(2, p.getUserId());
-            statement.setInt(3, p.getTransactionTypeId());
-            statement.setString(4, p.getDate());
+            statement.setInt(1, t.getProductId());
+            statement.setInt(2, t.getUserId());
+            statement.setInt(3, t.getTransactionTypeId());
+            statement.setDate(4, new Date(t.getDate().getTime()));
             statement.executeUpdate();
 
             return "viewTransactions.xhtml";

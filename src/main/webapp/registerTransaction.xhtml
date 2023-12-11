@@ -7,6 +7,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 <html xmlns="http://www.w3.org/1999/xhtml"
      xmlns:f ="http://java.sun.com/jsf/core" 
      xmlns:h ="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
      >
     <h:head>
         <title>Register Transaction</title>
@@ -46,8 +47,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             </h:selectOneMenu>
             <br></br>
 
-            <h:outputLabel for="date" value="Date"></h:outputLabel>
-            <h:inputText id="date" value="#{Transactions.date}"></h:inputText>
+             <h:outputLabel for="date" value="Date"></h:outputLabel>
+            <p:calendar id="date" value="#{Transactions.date}" pattern="yyyy-MM-dd" />
             <br></br>
 
             <h:commandButton action="#{Transactions.Insert(Transactions)}" value="Save">
