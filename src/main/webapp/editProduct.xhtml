@@ -6,36 +6,45 @@
         <title>Edit Product</title>
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
-    <h:body>
-        <nav>
-            <ul>
-                <li><a href="viewUsers.xhtml">Users</a></li>
-                <li><a href="viewProducts.xhtml">Products</a></li>
-                <li><a href="viewTransactions.xhtml">Transactions</a></li>
-            </ul>
-        </nav>
+    <h:body class="body">
+         <h:form>
+            <nav>
+                <ul>
+                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
+                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
+                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
+                </ul>
+            </nav>
+        </h:form>
         
-        <h1>Edit Product</h1>
         
-        <h:form>
-            <h:outputLabel for="name" value="Name:"></h:outputLabel>
-            <h:inputText id="name" value="#{productToEdit.name}"></h:inputText>
-            <br></br>
+         <div class="page_body">
+            <h1>Edit Product</h1>
 
-            <h:outputLabel for="modelName" value="Model Name:"></h:outputLabel>
-            <h:inputText id="modelName" value="#{productToEdit.modelName}"></h:inputText>
-            <br></br>
+            <h:form>
+                <h:outputLabel for="name" value="Name:"></h:outputLabel>
+                <h:inputText id="name" value="#{productToEdit.name}"></h:inputText>
+                <br></br>
 
-            <h:outputLabel for="description" value="Description:"></h:outputLabel>
-            <h:inputText id="description" value="#{productToEdit.description}"></h:inputText>
-            <br></br>
+                <h:outputLabel for="modelName" value="Model Name:"></h:outputLabel>
+                <h:inputText id="modelName" value="#{productToEdit.modelName}"></h:inputText>
+                <br></br>
 
-            <h:outputLabel for="price" value="Price:"></h:outputLabel>
-            <h:inputText id="price" value="#{productToEdit.price}"></h:inputText>
-            <br></br>
+                <h:outputLabel for="description" value="Description:"></h:outputLabel>
+                <h:inputText id="description" value="#{productToEdit.description}"></h:inputText>
+                <br></br>
 
-            <h:commandButton action="#{productToEdit.Update(productToEdit)}" value="Save">
-            </h:commandButton>
-        </h:form>    
+                <h:outputLabel for="price" value="Price:"></h:outputLabel>
+                <h:inputText id="price" value="#{productToEdit.price}"></h:inputText>
+                <br></br>
+
+                <h:commandButton action="#{productToEdit.Update(productToEdit)}" value="Save">
+                </h:commandButton>
+            </h:form>    
+         </div>
+        <footer>
+                <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
+         </footer>
     </h:body>
 </html>

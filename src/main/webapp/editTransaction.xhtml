@@ -7,45 +7,54 @@
         <title>Edit Transaction</title>
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
-    <h:body>
-        <nav>
-            <ul>
-                <li><a href="viewUsers.xhtml">Users</a></li>
-                <li><a href="viewProducts.xhtml">Products</a></li>
-                <li><a href="viewTransactions.xhtml">Transactions</a></li>
-            </ul>
-        </nav>
-        
-        <h1>Edit Transaction</h1>
-        
-        <h:form>
-            <h:outputLabel for="product" value="Product:"></h:outputLabel>
-            <h:selectOneMenu id="product" value="#{transactionToEdit.productId}">
-                <f:selectItem itemLabel="Select Product" itemValue="" />
-                <f:selectItems value="#{Products.GetAll()}" var="product" itemValue="#{product.productId}" itemLabel="#{product.name}" />
-            </h:selectOneMenu>
-            <br></br>
-            
-            <h:outputLabel for="customer" value="Customer:"></h:outputLabel>
-            <h:selectOneMenu id="customer" value="#{transactionToEdit.userId}">
-                <f:selectItem itemLabel="Select Customer" itemValue="" />
-                <f:selectItems value="#{Users.GetAll()}" var="c" itemValue="#{c.userId}" itemLabel="#{Transactions.getCustomerName(c.userId)}" />
-            </h:selectOneMenu>
-            <br></br>
-            
-            <h:outputLabel for="transactionType" value="Transaction Type:"></h:outputLabel>
-            <h:selectOneMenu id="transactionType" value="#{transactionToEdit.transactionTypeId}">
-                <f:selectItem itemLabel="Select Transaction Type" itemValue="" />
-                <f:selectItems value="#{TransactionTypes.GetAll()}" var="transaction" itemValue="#{transaction.transactionTypeId}" itemLabel="#{transaction.name}" />
-            </h:selectOneMenu>
-            <br></br>
-
-            <h:outputLabel for="date" value="Date"></h:outputLabel>
-            <p:calendar id="date" value="#{transactionToEdit.date}" pattern="yyyy-MM-dd" />
-            <br></br>
-
-            <h:commandButton action="#{Transactions.Update(transactionToEdit)}" value="Save">
-            </h:commandButton>
+    <h:body class="body">
+         <h:form>
+            <nav>
+                <ul>
+                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
+                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
+                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
+                </ul>
+            </nav>
         </h:form>
+        
+        
+         <div class="page_body">
+            <h1>Edit Transaction</h1>
+
+            <h:form>
+                <h:outputLabel for="product" value="Product:"></h:outputLabel>
+                <h:selectOneMenu id="product" value="#{transactionToEdit.productId}">
+                    <f:selectItem itemLabel="Select Product" itemValue="" />
+                    <f:selectItems value="#{Products.GetAll()}" var="product" itemValue="#{product.productId}" itemLabel="#{product.name}" />
+                </h:selectOneMenu>
+                <br></br>
+
+                <h:outputLabel for="customer" value="Customer:"></h:outputLabel>
+                <h:selectOneMenu id="customer" value="#{transactionToEdit.userId}">
+                    <f:selectItem itemLabel="Select Customer" itemValue="" />
+                    <f:selectItems value="#{Users.GetAll()}" var="c" itemValue="#{c.userId}" itemLabel="#{Transactions.getCustomerName(c.userId)}" />
+                </h:selectOneMenu>
+                <br></br>
+
+                <h:outputLabel for="transactionType" value="Transaction Type:"></h:outputLabel>
+                <h:selectOneMenu id="transactionType" value="#{transactionToEdit.transactionTypeId}">
+                    <f:selectItem itemLabel="Select Transaction Type" itemValue="" />
+                    <f:selectItems value="#{TransactionTypes.GetAll()}" var="transaction" itemValue="#{transaction.transactionTypeId}" itemLabel="#{transaction.name}" />
+                </h:selectOneMenu>
+                <br></br>
+
+                <h:outputLabel for="date" value="Date"></h:outputLabel>
+                <p:calendar id="date" value="#{transactionToEdit.date}" pattern="yyyy-MM-dd" />
+                <br></br>
+
+                <h:commandButton action="#{Transactions.Update(transactionToEdit)}" value="Save">
+                </h:commandButton>
+            </h:form>
+         </div>
+        <footer>
+                <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
+         </footer>
     </h:body>
 </html>

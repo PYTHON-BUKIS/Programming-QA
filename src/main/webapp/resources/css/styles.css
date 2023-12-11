@@ -7,11 +7,141 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Author     : sonk
 */
 
-body {
-    background: gray;
+.body {
+    background-image: linear-gradient(to right, rgb(255, 255, 195), pink, rgb(255, 181, 255));
+}
+
+.sign_in_square {
+    margin: 15% auto 15% auto;
+    height: 366px;
+    width: 400px;
+    border-radius: 5%;
+    background-color: white;
+    
+    text-align: center;
+}
+
+.log_in_text {
+    padding-top: 30px;
+    margin-bottom: 0;
+    font-family:'Courier New', Courier, monospace;
+    font-size: xxx-large;
+    color:blueviolet;
+}
+
+.log_in_text_field {
+    margin: 10px;
+    margin-left: 30px;
+    font-family:'Courier New', Courier, monospace;
+    color: blueviolet;
+    font-size: x-large;
+    text-align: left;
+}
+
+.log_in_input_field {
+    height:35px; 
+    width: 85%;
+    font-size:15pt;
+    border-width: 3px;
+    border-radius: 10px;
+    border-color: blueviolet;
+    border-style: solid;
+}
+
+.log_in_button {
+    align-self: center;
+    display: block;
+    margin: 25px auto 30px auto;
+    height: 60px;
+    width: 70%;
+    font-size: 20pt;
+    border-radius: 25px;
     color: white;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    background-image: linear-gradient(to right, rgb(30, 0, 101), rgb(89, 35, 183), rgb(200, 0, 255) );
+    
+    font-weight: bold;
+}
+
+table {
+    height: 100%;
 }
 
 nav {
-    background: blue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 12.5%;
+    height: 100%;
+    
+    margin: 0px;
+    background-image: linear-gradient(to right, rgb(142, 236, 250), rgb(163, 240, 255) , rgb(247, 249, 218) );
+    z-index: 1;
+    
+    border-left:  0;
+    border-right: 10px;
+    border-top: 0;
+    border-bottom: 0;
+    border-color: #cb6ce6;
+    border-style: solid;
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    height: 100%;
+}
+
+nav li {
+    margin: 10px;
+    
+}
+
+#logout {
+    position: absolute;
+    bottom: 0.5%;
+    width: 91%;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    
+    font-weight: bold;
+}
+
+.nav_selected {
+     background-color: pink;
+}
+
+.page_body {
+    background: white;
+    margin-left: 12.75%;
+    margin-right: 0%;
+    padding: 20px;
+    border-radius: 20px; 
+}
+
+footer {    
+    bottom: 0;
+    position: fixed;
+    background: #5e17eb;
+    width: 100%;
+}
+
+footer h3 {
+    padding-right: 50px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family:'Courier New', Courier, monospace;
+    font-size: xx-large;
+    color:white;
+    
+    text-align: right;
 }

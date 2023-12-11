@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 @ManagedBean(name = "Users", eager = true)
 
 public class User {
@@ -138,7 +139,11 @@ public class User {
             PreparedStatement statement = con.prepareStatement("UPDATE tbl_user SET job_id = ?, username = ?, password = ?, firstname = ?, lastname = ?, email = ?, contact_number = ? WHERE user_id = ?");
             statement.setInt(1, u.jobId);
             statement.setString(2, u.getUsername());
-            statement.setString(3, u.getPassword());
+            
+            String hashedPassword = u.getPassword();
+            hashedPassword = BCrypt.hashpw(hashedPassword, BCrypt.gensalt());
+            statement.setString(3, hashedPassword);
+            
             statement.setString(4, u.getFirstName());
             statement.setString(5, u.getLastName());
             statement.setString(6, u.getEmail());
@@ -178,8 +183,6 @@ public class User {
                 temp.setContactNumber(result.getString("contact_number"));
                 temp.setJobId(result.getInt("job_id"));
                 sessionMap.put("userToEdit", temp);
-                
-                
             }
             
             return "editUser.xhtml";
@@ -238,7 +241,11 @@ public class User {
             PreparedStatement statement = con.prepareStatement("INSERT INTO tbl_user (job_id, username, password, firstname, lastname, email, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, u.jobId);
             statement.setString(2, u.getUsername());
-            statement.setString(3, u.getPassword());
+            
+            String hashedPassword = u.getPassword();
+            hashedPassword = BCrypt.hashpw(hashedPassword, BCrypt.gensalt());
+            statement.setString(3, hashedPassword);
+            
             statement.setString(4, u.getFirstName());
             statement.setString(5, u.getLastName());
             statement.setString(6, u.getEmail());
@@ -250,5 +257,66 @@ public class User {
             e.printStackTrace();
             return "Helper/error.xhtml";
         }
+    }
+    
+    public String Login(String user, String pass) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/program_db?zeroDateTimeBehavior=CONVERT_TO_NULL",
+                    "root",
+                    "");
+
+            PreparedStatement stmt = con.prepareStatement("SELECT u.user_id, u.firstname, u.lastname, u.username, u.password, u.email, u.contact_number, u.job_id FROM tbl_user u WHERE u.username = ?;");
+            stmt.setString(1, user);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                User temp = new User();
+                temp.setUserId(rs.getInt("user_id"));
+                temp.setFirstName(rs.getString("firstname"));
+                temp.setLastName(rs.getString("lastname"));
+                temp.setUsername(rs.getString("username"));
+                temp.setPassword(rs.getString("password"));
+                temp.setEmail(rs.getString("email"));
+                temp.setContactNumber(rs.getString("contact_number"));
+                temp.setJobId(rs.getInt("job_id"));
+                
+                
+                // if hash is checked
+                if (BCrypt.checkpw(pass, temp.getPassword())) {
+                    sessionMap.put("loggedUser", temp);
+                
+                    switch(temp.getJobId()) {
+                        case 1:
+                            return "viewProducts.xhtml";
+
+                        case 2:
+                            return "supervisorHome.xhtml";
+
+                        case 3:
+                            return "adminHome.html";
+
+                        case 4: 
+                            return "customerHome.html";
+
+                        default:
+                            return "Helper/error.xhtml";
+                    }
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | InstantiationError | IllegalAccessError e) {
+            e.printStackTrace();
+             System.out.println(e.getClass().getSimpleName());
+            return "login.xhtml";
+        }
+         
+        return "login.xhtml";
+    }
+    
+    public String Logout() {
+        sessionMap.remove("loggedUser");
+        return "login.xhtml";
     }
 }

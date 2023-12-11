@@ -12,65 +12,71 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <title>View Users</title>
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
-    <h:body>
-        <nav>
-            <ul>
-                <li><a href="viewUsers.xhtml">Users</a></li>
-                <li><a href="viewProducts.xhtml">Products</a></li>
-                <li><a href="viewTransactions.xhtml">Transactions</a></li>
-            </ul>
-        </nav>
-        
-        <h1>View Users</h1>
-        
+    <h:body class="body">
         <h:form>
-            <h:dataTable binding="#{table}" value="#{Users.GetAll()}" var="user">
-                <h:column>
-                    <f:facet name="header">User ID</f:facet>
-                    <h:outputText value="#{user.userId}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">First Name</f:facet>
-                    <h:outputText value="#{user.firstName}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Last Name</f:facet>
-                    <h:outputText value="#{user.lastName}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Username</f:facet>
-                    <h:outputText value="#{user.username}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Password</f:facet>
-                    <h:outputText value="#{user.password}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Email</f:facet>
-                    <h:outputText value="#{user.email}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Contact Number</f:facet>
-                    <h:outputText value="#{user.contactNumber}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Job Title</f:facet>
-                    <h:outputText value="#{Users.getJobName(user.jobId)}"></h:outputText>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Edit User</f:facet>
-                       <h:commandButton action="#{Users.BeginEditProcess(user.userId)}" value="Edit" />
-                </h:column>
-                <h:column>
-                <f:facet name="header">Remove User</f:facet>
-                    <h:commandButton action="#{Users.Delete(user.userId)}" value="Delete" />
-                </h:column>
-            </h:dataTable>
-        </h:form>    
-        
-        <h:form>
-            <h:commandButton action="registerUser.xhtml" value="Register"> </h:commandButton>    
+            <nav>
+                <ul>
+                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
+                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
+                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
+                </ul>
+            </nav>
         </h:form>
+         <div class="page_body">
+            <h1>View Users</h1>
 
+            <h:form>
+                <h:dataTable binding="#{table}" value="#{Users.GetAll()}" var="user">
+                    <h:column>
+                        <f:facet name="header">User ID</f:facet>
+                        <h:outputText value="#{user.userId}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">First Name</f:facet>
+                        <h:outputText value="#{user.firstName}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Last Name</f:facet>
+                        <h:outputText value="#{user.lastName}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Username</f:facet>
+                        <h:outputText value="#{user.username}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Password</f:facet>
+                        <h:outputText value="#{user.password}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        <h:outputText value="#{user.email}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Contact Number</f:facet>
+                        <h:outputText value="#{user.contactNumber}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Job Title</f:facet>
+                        <h:outputText value="#{Users.getJobName(user.jobId)}"></h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Edit User</f:facet>
+                           <h:commandButton action="#{Users.BeginEditProcess(user.userId)}" value="Edit" />
+                    </h:column>
+                    <h:column>
+                    <f:facet name="header">Remove User</f:facet>
+                        <h:commandButton action="#{Users.Delete(user.userId)}" value="Delete" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>    
+
+            <h:form>
+                <h:commandButton action="registerUser.xhtml" value="Register"> </h:commandButton>    
+            </h:form>
+         </div>
+        <footer>
+                <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
+         </footer>
     </h:body>
 </html>

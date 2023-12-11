@@ -6,51 +6,59 @@
         <title>Edit User</title>
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
-    <h:body>
-        <nav>
-            <ul>
-                <li><a href="viewUsers.xhtml">Users</a></li>
-                <li><a href="viewProducts.xhtml">Products</a></li>
-                <li><a href="viewTransactions.xhtml">Transactions</a></li>
-            </ul>
-        </nav>
+    <h:body class="body">
+       <h:form>
+            <nav>
+                <ul>
+                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
+                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
+                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
+                </ul>
+            </nav>
+        </h:form>
         
-        <h1>Edit User</h1>
-        
-        <h:form>
-            <h:outputLabel for="firstName" value="First Name:"></h:outputLabel>
-            <h:inputText id="firstName" value="#{userToEdit.firstName}"></h:inputText>
-            <br></br>
+         <div class="page_body">
+            <h1>Edit User</h1>
 
-            <h:outputLabel for="lastName" value="Last Name:"></h:outputLabel>
-            <h:inputText id="lastName" value="#{userToEdit.lastName}"></h:inputText>
-            <br></br>
+            <h:form>
+                <h:outputLabel for="firstName" value="First Name:"></h:outputLabel>
+                <h:inputText id="firstName" value="#{userToEdit.firstName}"></h:inputText>
+                <br></br>
 
-            <h:outputLabel for="username" value="Username:"></h:outputLabel>
-            <h:inputText id="username" value="#{userToEdit.username}"></h:inputText>
-            <br></br>
+                <h:outputLabel for="lastName" value="Last Name:"></h:outputLabel>
+                <h:inputText id="lastName" value="#{userToEdit.lastName}"></h:inputText>
+                <br></br>
 
-            <h:outputLabel for="password" value="Password:"></h:outputLabel>
-            <h:inputText id="password" value="#{userToEdit.password}"></h:inputText>
-            <br></br>
+                <h:outputLabel for="username" value="Username:"></h:outputLabel>
+                <h:inputText id="username" value="#{userToEdit.username}"></h:inputText>
+                <br></br>
 
-            <h:outputLabel for="email" value="Email:"></h:outputLabel>
-            <h:inputText id="email" value="#{userToEdit.email}"></h:inputText>
-            <br></br>
+                <h:outputLabel for="password" value="Password:"></h:outputLabel>
+                <h:inputSecret id="password" value="#{userToEdit.password}"></h:inputSecret>
+                <br></br>
 
-            <h:outputLabel for="contactNumber" value="Contact Number:"></h:outputLabel>
-            <h:inputText id="contactNumber" value="#{userToEdit.contactNumber}"></h:inputText>
-            <br></br>
-            
-            <h:outputLabel for="jobTitle" value="Job Title:"></h:outputLabel>
-            <h:selectOneMenu id="jobTitle" value="#{userToEdit.jobId}">
-                <f:selectItem itemLabel="Select Job" itemValue="" />
-                <f:selectItems value="#{Jobs.GetAll()}" var="job" itemValue="#{job.job_id}" itemLabel="#{job.name}" />
-            </h:selectOneMenu>
-            <br></br>
-            
-            <h:commandButton action="#{userToEdit.Update(userToEdit)}" value="Save">
-            </h:commandButton> 
-        </h:form>    
+                <h:outputLabel for="email" value="Email:"></h:outputLabel>
+                <h:inputText id="email" value="#{userToEdit.email}"></h:inputText>
+                <br></br>
+
+                <h:outputLabel for="contactNumber" value="Contact Number:"></h:outputLabel>
+                <h:inputText id="contactNumber" value="#{userToEdit.contactNumber}"></h:inputText>
+                <br></br>
+
+                <h:outputLabel for="jobTitle" value="Job Title:"></h:outputLabel>
+                <h:selectOneMenu id="jobTitle" value="#{userToEdit.jobId}">
+                    <f:selectItem itemLabel="Select Job" itemValue="" />
+                    <f:selectItems value="#{Jobs.GetAll()}" var="job" itemValue="#{job.job_id}" itemLabel="#{job.name}" />
+                </h:selectOneMenu>
+                <br></br>
+
+                <h:commandButton action="#{userToEdit.Update(userToEdit)}" value="Save">
+                </h:commandButton> 
+            </h:form>    
+         </div>
+        <footer>
+                <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
+         </footer>
     </h:body>
 </html>

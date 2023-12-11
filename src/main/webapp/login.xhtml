@@ -10,28 +10,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
      >
     <h:head>
         <title>Login</title>
+        <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
-    <h:body>
-        <nav>
-            <ul>
-                <li><a href="viewUsers.xhtml">Users</a></li>
-                <li><a href="viewProducts.xhtml">Products</a></li>
-                <li><a href="viewTransactions.xhtml">Transactions</a></li>
-            </ul>
-        </nav>
-        
-        <h1>LOGIN</h1>
-
-        <div>
+    <h:body class="body">
+        <div class="sign_in_square">
             <h:form>
-                <h:outputLabel for="em" value="Enter Username:"></h:outputLabel>
-                <h:inputText id="em" value="#{myuser.email}"></h:inputText>
-                <br></br>
-                <h:outputLabel for="cn" value="Enter Password:"></h:outputLabel>
-                <h:inputText id="cn" value="#{myuser.contactNumber}"></h:inputText>
-                <br></br>
-                <h:commandButton action="#{myuser.submit()}" value="Login">
-                </h:commandButton>
+                <h3 class="log_in_text"><strong>LOG IN</strong></h3>
+                
+                <h4 class="log_in_text_field"><h:outputLabel for="username" value="Username"></h:outputLabel></h4>
+                <h:inputText class="log_in_input_field" id="username" value="#{Users.username}"></h:inputText>
+                <br/>
+                <h4 class="log_in_text_field"><h:outputLabel for="password" value="Password"></h:outputLabel></h4>
+                <h:inputSecret class="log_in_input_field" id="password" value="#{Users.password}"></h:inputSecret>
+                <br/>
+                <h:commandButton class="log_in_button" action="#{Users.Login(Users.username, Users.password)}" value="Login"/>
             </h:form>   
         </div>
     </h:body>
