@@ -294,13 +294,13 @@ public class User {
                             return "viewProducts.xhtml";
 
                         case 2:
-                            return "supervisorHome.xhtml";
+                            return "viewUsersSV.xhtml";
 
                         case 3:
-                            return "adminHome.html";
+                            return "viewUsers.xhtml";
 
                         case 4: 
-                            return "customerHome.html";
+                            return "viewTransactionsCustomer.xhtml";
 
                         default:
                             return "Helper/error.xhtml";

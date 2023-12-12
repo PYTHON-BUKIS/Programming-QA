@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     >
+    <h:head>
+        <title>View Products</title>
+        <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
+    </h:head>   
+    <h:body>
+        <nav>
+            <ul>
+                <li><a href="viewUsersSV.xhtml">Users</a></li>
+                <li><a href="viewProductsSV.xhtml">Products</a></li>
+                <li><a href="viewTransactionsSV.xhtml">Transactions</a></li>
+            </ul>
+        </nav>
+        
+        <h1>View Products</h1>
+        
+        <h:form>
+            <h:dataTable binding="#{table}" value="#{Products.GetAll()}" var="product">
+                <h:column>
+                    <f:facet name="header">Product ID</f:facet>
+                    <h:outputText value="#{product.productId}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{product.name}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Model Name</f:facet>
+                    <h:outputText value="#{product.modelName}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{product.description}"></h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    <h:outputText value="#{product.price}"></h:outputText>
+                </h:column>
+
+        </h:form>    
+
+    </h:body>
+</html>

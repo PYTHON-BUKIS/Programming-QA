@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:f ="http://java.sun.com/jsf/core" 
+     xmlns:h ="http://java.sun.com/jsf/html"
+     xmlns:p="http://primefaces.org/ui"
+     >
+    <h:head>
+        <title>View Transactions</title>
+        <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
+    </h:head>
+    <h:body class="body">
+        <h:form id="nav_bar_form">
+            <nav id="nav_bar">
+                <ul>
+                    <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
+                </ul>
+            </nav>
+        </h:form>
+         <div class="page_body">
+            <h1>View Transactions</h1>
+
+            <h:form id="transactions_form">
+                <h:dataTable id="transactions" binding="#{table}" value="#{Transactions.GetAllCustomer()}" var="transaction">
+                    <h:column>
+                        <f:facet id="tid" name="header">Transaction ID</f:facet>
+                        <h:outputText value="#{transaction.transactionId}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="pid" name="header">Product ID</f:facet>
+                        <h:outputText value="#{transaction.productId}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="Pname" name="header">Product Name</f:facet>
+                        <h:outputText value="#{Transactions.getProductName(transaction.productId)}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="Cid" name="header">Customer ID</f:facet>
+                        <h:outputText value="#{transaction.userId}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="Cname" name="header">Customer Name</f:facet>
+                        <h:outputText value="#{Transactions.getCustomerName(transaction.userId)}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="Ttype" name="header">Transaction Type</f:facet>
+                        <h:outputText value="#{Transactions.getTransactionTypeString(transaction.transactionTypeId)}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet id="date" name="header">Date</f:facet>
+                        <h:outputText value="#{transaction.date}"></h:outputText>
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+            
+            <div>
+                <h:form id="report_generation_form">
+                    <h:outputLabel for="dateFrom" value="Date From"></h:outputLabel>
+                    <p:calendar id="dateFrom" value="#{Reports.reportDateFrom}" pattern="yyyy-MM-dd" />
+                    <br></br>
+
+                    <h:outputLabel for="dateTo" value="Date To"></h:outputLabel>
+                    <p:calendar id="dateTo" value="#{Reports.reportDateTo}" pattern="yyyy-MM-dd" />
+                    <br></br>
+
+                    <h:commandButton action="#{Reports.GenerateReport()}" value="Generate Report"> </h:commandButton>    
+                </h:form>
+            </div>
+         </div>
+        <footer>
+                <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
+         </footer>
+    </h:body>
+</html>
