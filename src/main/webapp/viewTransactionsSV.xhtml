@@ -76,7 +76,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <p:calendar id="dateTo" value="#{Reports.reportDateTo}" pattern="yyyy-MM-dd" />
                     <br></br>
 
-                    <h:commandButton action="#{Reports.GenerateReport()}" value="Generate Report"> </h:commandButton>    
+                    <h:commandButton action="#{Reports.GenerateReportBetween(Reports.reportDateFrom, Reports.reportDateTo)}" value="Generate Dated Report"> </h:commandButton>    
+                    <h:commandButton action="#{Reports.GenerateReportAll()}" value="Generate Full Report"> </h:commandButton>    
                 </h:form>
             </div>
          </div>

@@ -63,20 +63,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
                 </h:dataTable>
             </h:form>
-            
-            <div>
-                <h:form id="report_generation_form">
-                    <h:outputLabel for="dateFrom" value="Date From"></h:outputLabel>
-                    <p:calendar id="dateFrom" value="#{Reports.reportDateFrom}" pattern="yyyy-MM-dd" />
-                    <br></br>
-
-                    <h:outputLabel for="dateTo" value="Date To"></h:outputLabel>
-                    <p:calendar id="dateTo" value="#{Reports.reportDateTo}" pattern="yyyy-MM-dd" />
-                    <br></br>
-
-                    <h:commandButton action="#{Reports.GenerateReport()}" value="Generate Report"> </h:commandButton>    
-                </h:form>
-            </div>
          </div>
         <footer>
                 <h3><h:outputText value="#{Users.getJobName(loggedUser.jobId)}"/></h3>
