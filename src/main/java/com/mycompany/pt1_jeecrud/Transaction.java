@@ -256,7 +256,7 @@ public class Transaction{
         return transactionData;
     }
     
-    public ArrayList GetAllCustomer() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException //WORK IN PROGRESS
+    public ArrayList GetAllCustomer(int userId) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException //WORK IN PROGRESS
     {
         ArrayList<Transaction> transactionData = new ArrayList();
 
@@ -268,8 +268,9 @@ public class Transaction{
                     "root",
                     "");
 
-            Statement stmt = con.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT transaction_id, user_id, product_id, transaction_type_id, date FROM tbl_transaction WHERE user_id = 3;");
+            PreparedStatement stmt = con.prepareStatement("SELECT transaction_id, user_id, product_id, transaction_type_id, date FROM tbl_transaction WHERE user_id = ?;");
+            stmt.setInt(1, userId);
+            ResultSet results = stmt.executeQuery();
 
             while(results.next())
             {

@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .body {
     background-image: linear-gradient(to right, rgb(255, 255, 195), pink, rgb(255, 181, 255));
+    background-size: 1500pt 1500pt;
 }
 
 .sign_in_square {
@@ -53,16 +54,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     display: block;
     margin: 25px auto 30px auto;
     height: 60px;
-    width: 70%;
-    font-size: 20pt;
+    width: 100%;
+    font-size: 19px;
     border-radius: 25px;
-    color: white;
+    color:rgb(140, 111, 190);
     border-style: solid;
-    border-color: white;
+    border-color:rgb(187, 148, 255);
     border-width: 5px;
     font-family: 'Courier New', Courier, monospace;
-    background-image: linear-gradient(to right, rgb(30, 0, 101), rgb(89, 35, 183), rgb(200, 0, 255) );
-    
+    background-color:  rgb(208, 243, 255);
     font-weight: bold;
 }
 
@@ -80,14 +80,14 @@ nav {
     height: 100%;
     
     margin: 0px;
-    background-image: linear-gradient(to right, rgb(142, 236, 250), rgb(163, 240, 255) , rgb(247, 249, 218) );
+    background-image: linear-gradient(to left, rgb(142, 236, 250), rgb(163, 240, 255) , rgb(247, 249, 218) );
     z-index: 1;
     
     border-left:  0;
     border-right: 10px;
     border-top: 0;
     border-bottom: 0;
-    border-color: #cb6ce6;
+    border-color: rgb(187, 148, 255);
     border-style: solid;
 }
 
@@ -122,11 +122,18 @@ nav a {
 
 .page_body {
     background: white;
-    margin-left: 12.75%;
+    margin-left: 13.5%;
     margin-right: 0%;
     padding: 20px;
     border-radius: 20px; 
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 17px;
+    border-color: rgb(187, 148, 255);
+    border-width: 2px;
+    border-style: solid;
+    box-align: center;
 }
+
 
 footer {    
     bottom: 0;
@@ -144,4 +151,15 @@ footer h3 {
     color:white;
     
     text-align: right;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    margin: 0;
+    border-color: rgb(187, 148, 255);
+    border-top: 0px;
+    border-bottom: 0px;
+    border-left: 2px;
+    border-right: 2px;
+    border-style: solid;
 }

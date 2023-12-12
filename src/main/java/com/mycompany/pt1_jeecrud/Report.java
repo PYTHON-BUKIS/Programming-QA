@@ -5,6 +5,10 @@
 package com.mycompany.pt1_jeecrud;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -82,7 +86,19 @@ public class Report {
         
         String path = FILEPATH + "report-" + System.currentTimeMillis() + ".pdf";
         
-        ITextRenderer renderer = new ITextRenderer();
+        String xhtmlContent = "<html><body><h1>Hello, World!</h1></body></html>";
+        
+        File file = new File(path);
+        file.mkdirs();
+        
+        try (OutputStream os = new FileOutputStream(path)) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(xhtmlContent);
+            renderer.createPDF(os);
+        } catch (Exception e) {
+            System.out.println(e.getClass().getSimpleName());
+        }
+        
         
         // todo: make pdf file
         // todo: pdf save as
