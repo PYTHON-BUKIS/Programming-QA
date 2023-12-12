@@ -25,7 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
             <h1>View Transactions</h1>
 
             <h:form id="transactions_form">
-                <h:dataTable id="transactions" binding="#{table}" value="#{Transactions.GetAllCustomer()}" var="transaction">
+                <h:dataTable id="transactions" binding="#{table}" value="#{Transactions.GetAllCustomer(loggedUser.userId)}" var="transaction">
                     <h:column>
                         <f:facet id="tid" name="header">Transaction ID</f:facet>
                         <h:outputText value="#{transaction.transactionId}"></h:outputText>
