@@ -14,12 +14,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
     <h:body class="body">
-        <h:form>
-            <nav>
+        <h:form id="nav_bar_form">
+            <nav id="nav_bar">
                 <ul>
-                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
-                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
-                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="users"><h:button class="log_in_button" outcome="viewUsers" value="Users"/></li>
+                    <li id="products"><h:button class="log_in_button" outcome="viewProducts" value="Products"/></li>
+                    <li id="transactions"><h:button class="log_in_button" outcome="viewTransactions" value="Transactions"/></li>
                     <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
                 </ul>
             </nav>
@@ -27,62 +27,62 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
          <div class="page_body">
             <h1>View Transactions</h1>
 
-            <h:form>
-                <h:dataTable binding="#{table}" value="#{Transactions.GetAll()}" var="transaction">
+            <h:form id="transactions_form">
+                <h:dataTable id="transactions" binding="#{table}" value="#{Transactions.GetAll()}" var="transaction">
                     <h:column>
-                        <f:facet name="header">Transaction ID</f:facet>
+                        <f:facet id="tid" name="header">Transaction ID</f:facet>
                         <h:outputText value="#{transaction.transactionId}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Product ID</f:facet>
+                        <f:facet id="pid" name="header">Product ID</f:facet>
                         <h:outputText value="#{transaction.productId}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Product Name</f:facet>
+                        <f:facet id="Pname" name="header">Product Name</f:facet>
                         <h:outputText value="#{Transactions.getProductName(transaction.productId)}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Customer ID</f:facet>
+                        <f:facet id="Cid" name="header">Customer ID</f:facet>
                         <h:outputText value="#{transaction.userId}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Customer Name</f:facet>
+                        <f:facet id="Cname" name="header">Customer Name</f:facet>
                         <h:outputText value="#{Transactions.getCustomerName(transaction.userId)}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Transaction Type</f:facet>
+                        <f:facet id="Ttype" name="header">Transaction Type</f:facet>
                         <h:outputText value="#{Transactions.getTransactionTypeString(transaction.transactionTypeId)}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Date</f:facet>
+                        <f:facet id="date" name="header">Date</f:facet>
                         <h:outputText value="#{transaction.date}"></h:outputText>
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Edit Transaction</f:facet>
+                        <f:facet id="editT" name="header">Edit Transaction</f:facet>
                            <h:commandButton action="#{Transactions.BeginEditProcess(transaction.transactionId)}" value="Edit" />
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Remove Transaction</f:facet>
+                        <f:facet id="removeP" name="header">Remove Transaction</f:facet>
                         <h:commandButton action="#{Transactions.Delete(transaction.transactionId)}" value="Delete" />
                     </h:column>
 
                 </h:dataTable>
             </h:form>
 
-            <h:form>
+            <h:form id="register_transactions_form">
                 <h:commandButton action="registerTransaction.xhtml" value="Register"> </h:commandButton>    
             </h:form>
 
             <div>
-                <h:form>
+                <h:form id="report_generation_form">
                     <h:outputLabel for="dateFrom" value="Date From"></h:outputLabel>
                     <p:calendar id="dateFrom" value="#{Reports.reportDateFrom}" pattern="yyyy-MM-dd" />
                     <br></br>

@@ -7,12 +7,12 @@
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>
     <h:body class="body">
-         <h:form>
-            <nav>
+         <h:form id="nav_bar_form">
+            <nav id="nav_bar">
                 <ul>
-                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
-                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
-                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="users"><h:button class="log_in_button" outcome="viewUsers" value="Users"/></li>
+                    <li id="products"><h:button class="log_in_button" outcome="viewProducts" value="Products"/></li>
+                    <li id="transactions"><h:button class="log_in_button" outcome="viewTransactions" value="Transactions"/></li>
                     <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
                 </ul>
             </nav>
@@ -22,7 +22,7 @@
          <div class="page_body">
             <h1>Edit Product</h1>
 
-            <h:form>
+            <h:form id="edit_product_form">
                 <h:outputLabel for="name" value="Name:"></h:outputLabel>
                 <h:inputText id="name" value="#{productToEdit.name}"></h:inputText>
                 <br></br>

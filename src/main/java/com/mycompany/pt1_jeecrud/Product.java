@@ -4,9 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 @ManagedBean(name = "Products", eager = true)
-
+@SessionScoped
 public class Product {
     int productId;
     String name;

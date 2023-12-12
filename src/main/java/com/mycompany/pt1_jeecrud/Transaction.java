@@ -5,9 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 @ManagedBean(name = "Transactions", eager = true)
-
+@SessionScoped
 public class Transaction{
     int transactionId;
     int productId;

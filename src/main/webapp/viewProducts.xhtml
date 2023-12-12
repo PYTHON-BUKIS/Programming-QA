@@ -13,12 +13,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
         <link type="text/css" rel="stylesheet" href="/JSF_act1/faces/javax.faces.resource/css/styles.css" />
     </h:head>   
     <h:body class="body">
-        <h:form>
-            <nav>
+        <h:form id="nav_bar_form">
+            <nav id="nav_bar">
                 <ul>
-                    <li id="users"><h:commandButton class="log_in_button" action="#{Navigation.ViewUsers(loggedUser.jobId)}" value="Users"/></li>
-                    <li id="products"><h:commandButton class="log_in_button" action="#{Navigation.ViewProducts(loggedUser.jobId)}" value="Products"/></li>
-                    <li id="transactions"><h:commandButton class="log_in_button" action="#{Navigation.ViewTransactions(loggedUser.jobId)}" value="Transactions"/></li>
+                    <li id="users"><h:button class="log_in_button" outcome="viewUsers" value="Users"/></li>
+                    <li id="products"><h:button class="log_in_button" outcome="viewProducts" value="Products"/></li>
+                    <li id="transactions"><h:button class="log_in_button" outcome="viewTransactions" value="Transactions"/></li>
                     <li id="logout"><h:commandButton class="log_in_button" action="#{Users.Logout()}" value="Log Out"/></li>
                 </ul>
             </nav>
@@ -26,40 +26,40 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
          <div class="page_body">
             <h1>View Products</h1>
 
-            <h:form id="main_table_products">
-                <h:dataTable binding="#{table}" value="#{Products.GetAll()}" var="product">
+            <h:form id="products_form">
+                <h:dataTable id="products" binding="#{table}" value="#{Products.GetAll()}" var="product">
                     <h:column>
-                        <f:facet name="header">Product ID</f:facet>
+                        <f:facet id="pid" name="header">Product ID</f:facet>
                         <h:outputText value="#{product.productId}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Name</f:facet>
+                        <f:facet id="name" name="header">Name</f:facet>
                         <h:outputText value="#{product.name}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Model Name</f:facet>
+                        <f:facet id="mod" name="header">Model Name</f:facet>
                         <h:outputText value="#{product.modelName}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Description</f:facet>
+                        <f:facet id="dec" name="header">Description</f:facet>
                         <h:outputText value="#{product.description}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Price</f:facet>
+                        <f:facet id="pri" name="header">Price</f:facet>
                         <h:outputText value="#{product.price}"></h:outputText>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Edit Product</f:facet>
+                        <f:facet id="editP" name="header">Edit Product</f:facet>
                            <h:commandButton action="#{Products.BeginEditProcess(product.productId)}" value="Edit" />
                     </h:column>
                     <h:column>
-                    <f:facet name="header">Remove Product</f:facet>
+                    <f:facet id="removeP" name="header">Remove Product</f:facet>
                         <h:commandButton action="#{Products.Delete(product.productId)}" value="Delete" />
                     </h:column>
                 </h:dataTable>
             </h:form>    
 
-            <h:form id="register_products">
+            <h:form id="register_products_form">
                 <h:commandButton action="registerProduct.xhtml" value="Register"> </h:commandButton>
             </h:form>
          </div>

@@ -13,6 +13,14 @@
       <welcome-file>faces/register.xhtml</welcome-file>
    </welcome-file-list>
 
+    <context-param>
+      <description>If this property is set to true, the number
+    that is used to generate new client IDs is stored in the view
+    so that it is saved between requests.
+      </description>
+      <param-name>com.ibm.ws.jsf.storeDynamicClientIds</param-name>
+    <param-value>true</param-value>
+    </context-param>
 
    <servlet>
       <servlet-name>Faces Servlet</servlet-name>
@@ -44,5 +52,6 @@
       <servlet-name>Faces Servlet</servlet-name>
       <url-pattern>*.css</url-pattern>
    </servlet-mapping>
+   
 
 </web-app>
